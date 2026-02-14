@@ -10,4 +10,6 @@ public abstract class Troop {
 	//index 1 is the damage
 	
 	public abstract Color getColor();
+	
+	abstract void reset();
 }

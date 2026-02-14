@@ -20,4 +20,7 @@ public class Archers extends Troop{
 		return new Color(209,56,145);
 	}
 
+	void reset() {
+		firstHit=false;
+	}
 }

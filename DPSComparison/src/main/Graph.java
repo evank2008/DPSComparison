@@ -1,7 +1,10 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 import javax.swing.*;
@@ -26,30 +29,45 @@ public class Graph extends JPanel{
 		yScale = (double) height / (yMax - yMin);
 		this.troops=troops;
 	}
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	public void paintComponent(Graphics gg) {
+		super.paintComponent(gg);
+		Graphics2D g = (Graphics2D) gg;
 		//draw the graph lines
-		System.out.println("drawing");
-		
+		g.setFont(g.getFont().deriveFont(20f));
 		g.setColor(new Color(200,200,200));
 		for(int i = xMin;i<=xMax;i+=xIncrement) {
-			g.fillRect(getScreenPos(i,true), 0, 1, height);
+			g.drawLine(getScreenPos(i,true), 0, getScreenPos(i,true), height);
 		}
 		for(int i = yMin;i<=yMax;i+=yIncrement) {
-			g.fillRect(0, getScreenPos(i,false), width, 2);
+			g.drawLine(0, getScreenPos(i,false), width, getScreenPos(i,false));
 		}
-		
-		g.setColor(new Color(150,150,150));
 		for(int i = 0;i<=xMax;i+=5*xIncrement) {
-			g.fillRect(getScreenPos(i,true), 0, 1, height);
+			g.setColor(new Color(150,150,150));
+			g.drawLine(getScreenPos(i,true), 0, getScreenPos(i,true), height);
 		}
+		g.setColor(new Color(150,150,150));
 		for(int i = 0;i<=yMax;i+=5*yIncrement) {
-			g.fillRect(0, getScreenPos(i,false), width, 1);
+			g.drawLine(0, getScreenPos(i,false), width, getScreenPos(i,false));
 		}
 		
 		g.setColor(Color.black);
-		g.fillRect(getScreenPos(0,true), 0, 2, height);
-		g.fillRect(0, getScreenPos(0,false), width, 2);
+		g.setStroke(new BasicStroke(2));
+		g.drawLine(getScreenPos(0, true), 0, getScreenPos(0, true), height);
+		g.drawLine(0, getScreenPos(0, false), width, getScreenPos(0, false));
+
+		for(int i = 0;i<=xMax;i+=5*xIncrement) {
+			if(i<=5*xIncrement) {
+				g.setColor(this.getBackground());
+				g.fillRect(getScreenPos(i,true)-8, getScreenPos(0,false)+5, 16, 20);
+				g.setColor(Color.black);
+				g.drawString(""+i, getScreenPos(i,true)-5, getScreenPos(0,false)+22);
+			} else {
+				g.setColor(this.getBackground());
+				g.fillRect(getScreenPos(i,true)-8, getScreenPos(0,false)+5, 16, 20);
+				g.setColor(Color.black);
+				g.drawString(""+i, getScreenPos(i,true)-10, getScreenPos(0,false)+22);
+			}
+		}
 		
 		for(Troop t: troops) {
 			plotTroop(t,g);
@@ -65,22 +83,25 @@ public class Graph extends JPanel{
 		
 
 	}
-	public void plotTroop(Troop troop, Graphics g) {
+	public void plotTroop(Troop troop, Graphics gg) {
+		Graphics2D g = (Graphics2D) gg;
 		System.out.println("plotting troop");
 		double time = 0;
 		int damage=0;
 		Point lastPoint = new Point(getScreenPos(0,true),getScreenPos(0,false));
+		troop.reset();
 		while(time<=xMax) {
 			double[] hit = troop.getNextHit();
 			time+=hit[0];
 			damage+=hit[1];
 			Point newPoint = new Point(getScreenPos(time,true),getScreenPos(damage,false));
-			int width=(int) (hit[0]*xScale);
-			int thickness=2;
 			g.setColor(troop.getColor());
-			g.fillRect(lastPoint.x, lastPoint.y, width, thickness);
-			int height = lastPoint.y-newPoint.y;
-			g.fillRect(newPoint.x-thickness, lastPoint.y-height, thickness, height+thickness);
+			g.setStroke(new BasicStroke(3,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
+			
+			//draw lines
+			g.drawLine(lastPoint.x, lastPoint.y, newPoint.x, lastPoint.y);
+			g.drawLine(newPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+			
 			lastPoint=newPoint;
 			
 		}
