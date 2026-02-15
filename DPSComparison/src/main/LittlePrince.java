@@ -8,13 +8,13 @@ public class LittlePrince extends Troop{
 	public double[] getNextHit() {
 		hits++;
 		if(hits==0) {
-			return new double[]{0.5,99};
+			return new double[]{0.5,104};
 		} else if(hits<=3) {
-			return new double[]{1.2,99};
+			return new double[]{1.2,104};
 		} else if(hits<=6) {
-			return new double[]{0.6,99};
+			return new double[]{0.6,104};
 		} else {
-			return new double[]{0.4,99};
+			return new double[]{0.4,104};
 		}
 	}
 

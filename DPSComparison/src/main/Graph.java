@@ -60,7 +60,8 @@ public class Graph extends JPanel implements KeyListener{
 		g.drawLine(getScreenPos(0, true), 0, getScreenPos(0, true), height);
 		g.drawLine(0, getScreenPos(0, false), width, getScreenPos(0, false));
 
-		for(int i = 0;i<=xMax;i+=5*xIncrement) {
+		//draw the number strings
+		for(int i = 5*xIncrement;i<=xMax;i+=5*xIncrement) {
 			if(i<=5*xIncrement) {
 				g.setColor(this.getBackground());
 				g.fillRect(getScreenPos(i,true)-8, getScreenPos(0,false)+5, 16, 20);
@@ -73,6 +74,16 @@ public class Graph extends JPanel implements KeyListener{
 				g.drawString(""+i, getScreenPos(i,true)-10, getScreenPos(0,false)+22);
 			}
 		}
+		for(int i = 5*yIncrement;i<=yMax;i+=5*yIncrement) {
+			g.setColor(this.getBackground());
+			g.fillRect(getScreenPos(0,true)-50, getScreenPos(i,false)-10, 45, 20);
+			g.setColor(Color.black);
+			g.drawString(""+i,getScreenPos(0,true)-50,getScreenPos(i,false)+6);
+		}
+		g.setColor(this.getBackground());
+		g.fillRect(getScreenPos(0,true)-25, getScreenPos(0,false)+5, 16, 20);
+		g.setColor(Color.black);
+		g.drawString("0", getScreenPos(0,true)-25, getScreenPos(0,false)+22);
 		
 		for(Troop t: troops) {
 			plotTroop(t,g);
