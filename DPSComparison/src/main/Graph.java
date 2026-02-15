@@ -6,15 +6,18 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
-public class Graph extends JPanel{
+public class Graph extends JPanel implements KeyListener{
 	int xIncrement=1;
 	int yIncrement=200;
 	int width,  height,  xMin,  xMax,  yMin,  yMax;
 	double xScale, yScale;
 	Troop[] troops;
+	boolean ctrlPressed = false;
 
 	public Graph(int width, int height, int xMin, int xMax, int yMin, int yMax, Troop[] troops) {
 		super();
@@ -28,6 +31,8 @@ public class Graph extends JPanel{
 		xScale = (double) width / (xMax - xMin);
 		yScale = (double) height / (yMax - yMin);
 		this.troops=troops;
+		this.requestFocusInWindow();
+		
 	}
 	public void paintComponent(Graphics gg) {
 		super.paintComponent(gg);
@@ -104,6 +109,32 @@ public class Graph extends JPanel{
 			
 			lastPoint=newPoint;
 			
+		}
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getKeyCode()==e.VK_CONTROL) {
+			this.ctrlPressed=true;
+		}
+		if(e.getKeyCode()==e.VK_S) {
+			if(JOptionPane.showConfirmDialog(null, "Are you sure you want to save this image to your default user directory?")==JOptionPane.OK_OPTION) {
+				DPSComparison.saveImage();
+			}
+		}
+		
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getKeyCode()==e.VK_CONTROL) {
+			this.ctrlPressed=false;
 		}
 	}
 	
