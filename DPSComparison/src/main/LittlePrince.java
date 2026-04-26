@@ -50,5 +50,7 @@ public class LittlePrince extends Troop{
 	void reset() {
 		hits=-1;
 	}
-
+	public String getName() {
+		return "Little Prince";
+	}
 }

@@ -12,4 +12,5 @@ public abstract class Troop {
 	public abstract Color getColor();
 	
 	abstract void reset();
+	public abstract String getName();
 }

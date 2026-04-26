@@ -23,4 +23,7 @@ public class Archers extends Troop{
 	void reset() {
 		firstHit=false;
 	}
+	public String getName() {
+		return "Archers";
+	}
 }

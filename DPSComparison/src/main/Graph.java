@@ -85,8 +85,29 @@ public class Graph extends JPanel implements KeyListener{
 		g.setColor(Color.black);
 		g.drawString("0", getScreenPos(0,true)-25, getScreenPos(0,false)+22);
 		
+		g.setColor(Color.black);
+		g.setFont(g.getFont().deriveFont(16f).deriveFont(Font.BOLD));
+		g.drawString("Time (s)", getScreenPos(7, true), getScreenPos(0, false)+22);
+		g.drawString("Damage", getScreenPos(-1.8, true), getScreenPos(1500, false));
+		
+		//color key on right
+		g.setColor(Color.white);
+		int h = troops.length;
+		int bottom = getScreenPos(yIncrement, false);
+		int top = getScreenPos(yIncrement*(h+3), false);
+		g.fillRect(getScreenPos(13, true), top, getScreenPos(19, true)-getScreenPos(13, true), bottom-top);
+		g.setColor(Color.black);
+		g.drawRect(getScreenPos(13, true), top, getScreenPos(19, true)-getScreenPos(13, true), bottom-top);
+		g.drawString("Key", getScreenPos(15, true)+10, getScreenPos(yIncrement*(h+2),false)-8);
+		
+		int row = 0;
 		for(Troop t: troops) {
 			plotTroop(t,g);
+			
+			g.drawString(t.getName(), getScreenPos(13.2, true), getScreenPos(yIncrement*(h-row), false)-8);
+			g.fillRect(getScreenPos(18, true), getScreenPos(yIncrement*(h+0.75-row), false),(int)(xIncrement*0.7*xScale), (int)(yIncrement*0.5*yScale));
+			
+			row++;
 		}
 		
 	}

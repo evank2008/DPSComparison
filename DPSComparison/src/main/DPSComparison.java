@@ -27,9 +27,7 @@ public DPSComparison() {
 	frame.setResizable(false);
 	
 	graph = new Graph(WIDTH,HEIGHT,-2,21,-600,3800, new Troop[]{
-			new EvolvedMusketeer(),
-			new Musketeer(),
-			new LittlePrince(true),
+			new Berserker(),
 			new LittlePrince(false),
 	});
 	frame.add(graph);

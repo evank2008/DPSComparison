@@ -29,5 +29,7 @@ public class EvolvedMusketeer extends Troop{
 	void reset() {
 		hits=-1;
 	}
-
+	public String getName() {
+		return "Evolved Musketeer";
+	}
 }
