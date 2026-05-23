@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class DPSComparison {
-	boolean saveFileRightNow=false;
 	static JFrame frame;
 	Graph graph;
 	public static final int WIDTH=800,HEIGHT=600;
@@ -26,9 +25,11 @@ public DPSComparison() {
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setResizable(false);
 	
-	graph = new Graph(WIDTH,HEIGHT,-2,21,-600,3800, new Troop[]{
-			new Berserker(),
-			new LittlePrince(false),
+	graph = new Graph(WIDTH,HEIGHT,-2,23,-600,3800, new Troop[]{
+			new PrincessTower(),
+			new Cannoneer(),
+			new RoyalChef(),
+			new DaggerDuchess()
 	});
 	frame.add(graph);
 	frame.setVisible(true);
@@ -51,7 +52,7 @@ public static void saveImage() {
 	try {
 		Path path = Paths.get(System.getProperty("user.home"), "damageComparison.png");
 		ImageIO.write(image, "png", path.toFile());
-System.out.println("success");
+System.out.println("success "+path.toFile().getAbsolutePath());
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
