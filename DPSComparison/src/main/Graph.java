@@ -142,6 +142,7 @@ public class Graph extends JPanel implements KeyListener{
 			lastPoint=newPoint;
 			
 		}
+		System.out.println(troop.getName()+" dealt "+damage+" damage.");
 	}
 	
 

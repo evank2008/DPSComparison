@@ -26,10 +26,9 @@ public DPSComparison() {
 	frame.setResizable(false);
 	
 	graph = new Graph(WIDTH,HEIGHT,-2,23,-600,3800, new Troop[]{
-			new PrincessTower(),
-			new Cannoneer(),
-			new RoyalChef(),
-			new DaggerDuchess()
+			new Musketeer(),
+			new Furnace(),
+			new EvolvedFurnace()
 	});
 	frame.add(graph);
 	frame.setVisible(true);
